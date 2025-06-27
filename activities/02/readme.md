@@ -44,7 +44,7 @@ As described in the previous paragraph, the organization stores all policy confi
 it is important for team policies to be editable _without_ admin intervention. We need to enable teams to review and edit changes on their own, while
 preventing unauthorized changes from other teams. Similarly, the configuration maintained by the organization must be protected again unauthorized
 changes by other teams. We can echieve these protections by setting up [branch protection rules](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository) and [CODEOWNER settings](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets#additional-settings). To simplify the workshop and due to time constraint,
-we will assume these protections are in place. If you wish to implement these protections after the workshop, refer to the steps described in the [policy-setup](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#policy-setup).
+we will assume these protections are in place. If you wish to implement these protections after the workshop, refer to the steps described in the [policy-setup](https://github.com/lmrs2/slsa-policy/blob/main/README.md#policy-setup).
 
 #### Organization roots
 
@@ -139,7 +139,7 @@ NOTE: The name and schema of this attestation is under discussion in the communi
 
 #### Set up ACLs
 
-Remember to try setting up the [protection ACLs to protect the policy and allow teams to edit the files they own](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#org-setup).
+Remember to try setting up the [protection ACLs to protect the policy and allow teams to edit the files they own](https://github.com/lmrs2/slsa-policy/blob/main/README.md#org-setup).
 
 #### Pre-submits for CODEOWNER
 
