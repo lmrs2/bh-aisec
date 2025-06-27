@@ -66,36 +66,6 @@ kyverno       kyverno-cleanup-controller-7c5f8bcd79-pwq2d      1/1     Running  
 kyverno       kyverno-reports-controller-7bdb457748-4xbvj      1/1     Running   0               5s
 ```
 
-## Model signing
-
-### sigstore-python
-
-Install sigstore-python (dev branch):
-
-```shell
-$ git clone git@github.com:sigstore/sigstore-python.git && cd sigstore-python
-# We need a feature that's not merged, so we checkout a commit
-# from https://github.com/sigstore/sigstore-python/pull/962
-$ git checkout e1753ffea3c3376068c13ded0375602f38c993e5
-# Set up the virtal environment.
-$ make dev
-# Enter the virtual environment
-$ source env/bin/activate
-$ cd ../
-```
-
-### model-transparency
-Make sure you're still in the virtual environment setup in the previous step. Then install model-transparency:
-
-```shell
-$ # Install more dependencies
-$ python3 -m pip install psutil==5.9.8
-# NOTE: The official repository is https://github.com/sigstore/model-transparency but we need a feature not landed in the main branch yet.
-# So we checkout a commit from https://github.com/sigstore/model-transparency/pull/112
-$ git clone https://github.com/laurentsimon/model-transparency && cd model-transparency
-$ git checkout 005c461061e62b260630a9d4c243d182131d32a0
-```
-
 ### jq
 
 Install [jq](https://jqlang.github.io/jq/download/) to visualize signature files.

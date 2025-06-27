@@ -1,10 +1,6 @@
-# OpenSSF SLSA Workshop @ 2024 Open Source Security Summit North America
+# BlackHat USA 2025 Security Training
 
-This is the landing page for the [OpenSSF SLSA Workshop](https://events.linuxfoundation.org/open-source-summit-north-america/features/co-located-events/?__hstc=14087400.578b67b64e2190424395285af33c8d5d.1708423678822.1710755394570.1710772128577.15&__hssc=14087400.1.1710772128577&__hsfp=1817696209#openssf-slsa-workshop) hosted at the [2024 Open Source Security Summit North America](https://events.linuxfoundation.org/open-source-summit-north-america/) on April 15.
-
-If you like the workshop and tutorials, let us know with a star!
-
-If you encounter problems or there are features you would like to see, [create an issue](https://github.com/slsa-framework/oss-na24-slsa-workshop/issues/new).
+This is the Supply-Chain section for the [Theory and Practice: Machine Learning Security Threats and Vulnerabilities (Zero to Hero)](https://www.blackhat.com/us-25/training/schedule/#theory-and-practice-machine-learning-security-threats-and-vulnerabilities-zero-to-hero-44500) hosted in Las Vegas 2-5 Aug 2025.
 
 ## Skills required
 
@@ -33,3 +29,4 @@ The schedule and presentations are available in the [slides](https://github.com/
 8. [Activity 05: Model integrity protection](./activities/05/readme.md)
 
  
+What's next: source track, dependency track
