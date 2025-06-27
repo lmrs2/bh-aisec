@@ -29,4 +29,10 @@ The schedule and presentations are available in the [slides](https://github.com/
 8. [Activity 05: Model integrity protection](./activities/05/readme.md)
 
  
+TODO
 What's next: source track, dependency track
+project1 -> inferrence
+
+activity 2: needs update
+In this activity, we will focus on the integrity protections applied to an artifact during its development, i.e. its minimum SLSA level. This will help us achieve the first goal of the workshop, which is to ensure that all produced containers are protected against tampering across the SDLC.
+
