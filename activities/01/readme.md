@@ -57,16 +57,17 @@ Make sure you have access to your image by authenticating to docker:
 
 ```shell
 $ REGISTRY_TOKEN=<your-token>
-$ REGISTRY_USERNAME=<registru-username>
+$ REGISTRY_USERNAME=<registry-username>
 $ docker login -u "${REGISTRY_USERNAME}" "${REGISTRY_TOKEN}"
 ```
 
 To verify your container, use the following command:
 
 ```shell
-# Update the image as recorded in your logs
-$ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:51c374c1af56022fdc75aec399d9694e1559338544d78b788a515bdd7278ebf5
-$ source_uri=github.com/slsa-framework/oss-na24-slsa-workshop-project1
+# Update the image as recorded in your logs. You will sit it printed under the "run" build.
+$ image=docker.io/lmrs2/bh25-aisec-project1-echo-server@sha256:321daeb68d28e7b8f7107f2b7b3af3a767e357415e349e13837addeda32b66da
+# Replace with your own repository.
+$ source_uri=github.com/lmrs2/bh25-aisec-project1
 $ path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --builder-id=https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml
 ```
 
@@ -97,3 +98,4 @@ After completing this activity, you should be able to answer the following quest
 3. What is SLSA provenance? What information does it contain?
 4. What is the necessary metadata to verify SLSA provenance for an artifact?
 5. Read about [dependency caching](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows). How might it impact the security of your builds?
+6. Read about [GitHub artifacts](https://docs.github.com/en/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/storing-and-sharing-data-from-a-workflow). How might it impact the security of your builds?
