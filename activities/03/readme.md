@@ -44,7 +44,7 @@ As described in the previous paragraph, the organization stores all policy confi
 it is important for team policies to be editable _without_ admin intervention. We need to enable teams to review and edit changes on their own, while
 preventing unauthorized changes from other teams. Similarly, the configuration maintained by the organization must be protected again unauthorized
 changes by other teams. We can echieve these protections by setting up [branch protection rules](https://docs.github.com/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository) and [CODEOWNER settings](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets#additional-settings). To simplify the workshop and due to time constraint,
-we will assume these protections are in place. If you wish to implement these protections after the workshop, refer to the steps described in the [policy-setup](https://github.com/laurentsimon/slsa-policy?tab=readme-ov-file#policy-setup-1).
+we will assume these protections are in place. If you wish to implement these protections after the workshop, refer to the steps described in the [policy-setup](https://github.com/lmrs2/slsa-policy?tab=readme-ov-file#policy-setup-1).
 
 #### Organization roots
 
@@ -119,7 +119,7 @@ To verify a deployment attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs
-$ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:51c374c1af56022fdc75aec399d9694e1559338544d78b788a515bdd7278ebf5
+$ image=docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:7e0c03e174f7f64ab5c4a1ce9cabd3e01d017d73a802597ad2b4da8f846e6a58
 # Update the repository name storing your policies.
 $ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/image-deployer.yml@refs/heads/main"
 $ type=https://slsa.dev/deployment/v0.1
@@ -137,7 +137,7 @@ For more information about the deployment attestation schema, see [specs](https:
 
 #### Set up ACLs
 
-Remember to try setting up the [protection ACLs](https://github.com/laurentsimon/slsa-policy/blob/main/README.md#org-setup) to protect the policy and allow teams to edit the files they own.
+Remember to try setting up the [protection ACLs](https://github.com/lmrs2/slsa-policy/blob/main/README.md#org-setup) to protect the policy and allow teams to edit the files they own.
 
 #### Pre-submits for CODEOWNER
 
@@ -147,10 +147,10 @@ We must ensure that new team policy files are accompanied by a new CODEOWNER fil
 
 In this demo, the attestations are stored along the container. This means that to store the deployment attestation, the team calling the evaluator needs write access to the registry, so it will not work if you try to deploy an image that you do not own since you will not have write access to the registry account. The workaround is to create an organization registry account on docker, and use that to store all attestations. You will need to follow these steps:
 
-1. Update the [Sign function](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/deployment/evaluate/evaluate.go#L91) used to sign the deployment attestation. This function is also used for signing the publish attestation, but we should not change the logic for the latter. You will need to add `RegistryClientOpts` to  [cosign.CheckOpts](https://github.com/laurentsimon/slsa-policy/blob/main/cmd/evaluator/internal/utils/crypto/crypto.go#L191-L199) - See [example code](https://github.com/slsa-framework/slsa-verifier/blob/v2.5.1/verifiers/internal/gha/verifier.go#L275-L281).
+1. Update the [Sign function](https://github.com/lmrs2/slsa-policy/blob/main/cmd/evaluator/internal/deployment/evaluate/evaluate.go#L91) used to sign the deployment attestation. This function is also used for signing the publish attestation, but we should not change the logic for the latter. You will need to add `RegistryClientOpts` to  [cosign.CheckOpts](https://github.com/lmrs2/slsa-policy/blob/main/cmd/evaluator/internal/utils/crypto/crypto.go#L191-L199) - See [example code](https://github.com/slsa-framework/slsa-verifier/blob/v2.5.1/verifiers/internal/gha/verifier.go#L275-L281).
 2. Add an option to the evaluator CLI.
 3. Update your deployment evaluator to use the new option.
-4. Share your code with us! We can merge it in [slsa-policy repository](https://github.com/laurentsimon/slsa-policy).
+4. Share your code with us! We can merge it in [slsa-policy repository](https://github.com/lmrs2/slsa-policy).
 
 #### Challenge yourself
 
