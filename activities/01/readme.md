@@ -46,7 +46,7 @@ Follow these steps:
 1. Update the [hardcoded username ](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L75) used to store the provenance to registtry.
 1. Create a [docker regitry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access.
 2. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
-2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see [example run](https://github.com/lmrs2/bh-aisec-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:51c374c1af56022fdc75aec399d9694e1559338544d78b788a515bdd7278ebf5`.
+2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" sttept "Run it" (see [example run](https://github.com/lmrs2/bh-aisec-project1/actions/runs/15938669578/job/44963419298)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:7e0c03e174f7f64ab5c4a1ce9cabd3e01d017d73a802597ad2b4da8f846e6a58`.
 
 
 #### Verify provenance
@@ -65,7 +65,7 @@ To verify your container, use the following command:
 
 ```shell
 # Update the image as recorded in your logs. You will sit it printed under the "run" build.
-$ image=docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:321daeb68d28e7b8f7107f2b7b3af3a767e357415e349e13837addeda32b66da
+$ image=docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:7e0c03e174f7f64ab5c4a1ce9cabd3e01d017d73a802597ad2b4da8f846e6a58
 # Replace with your own repository.
 $ source_uri=github.com/lmrs2/bh-aisec-project1
 $ path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --builder-id=https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml
@@ -81,7 +81,7 @@ Pass command `--print-provenance | jq` to see the verified content of the attest
 
 Explore other commands by using the `--help` command. You can read more on the [project repository](https://github.com/slsa-framework/slsa-verifier).
 
-Run the same verification command but remove the `sha256:xxx` part of the image name: `image=idocker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server`. Why is this failing? See [hints](https://github.com/slsa-framework/slsa-verifier/tree/main?tab=readme-ov-file#toctou-attacks).
+Run the same verification command but remove the `sha256:xxx` part of the image name: `image=idocker.io/lmrs2/bh-aisec-project1-echo-server`. Why is this failing? See [hints](https://github.com/slsa-framework/slsa-verifier/tree/main?tab=readme-ov-file#toctou-attacks).
 
 #### Optional: Verification in a GitHub  workflow
 

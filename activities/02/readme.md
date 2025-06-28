@@ -79,29 +79,29 @@ As explained in [repository protections](#repository-protections), for time cons
 
 ##### Configure the policy
 
-The file to be protected by the CODEOWNER file is [echo-server.json](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json) which describes the team policy for the container built in [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). The file contains the following sections:
+The file to be protected by the CODEOWNER file is [echo-server.json](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json) which describes the team policy for the container built in [Activity 01](https://github.com/lmrs2/bh-aisec/blob/main/activities/01/readme.md). The file contains the following sections:
 
 1. The [package](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L3) section describes the package to publish, i.e., [docker.io/lmrs2/bh-aisec-project1-echo-server](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L4) and will be used both for [staging and prod](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L7). NOTE: The environment (prod, staging) is optional.
-1. The [build](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L11) section describes how to build the container, i.e. it must be built from the source repository [github.com/slsa-framework/oss-na24-slsa-workshop-project1](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L14) by builder [github_generator_level_3](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L12).
+1. The [build](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L11) section describes how to build the container, i.e. it must be built from the source repository [github.com/lmrs2/bh-aisec-project1](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L14) by builder [github_generator_level_3](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L12).
 
 
 Follow these steps:
 
-1. Update the value of the package name with your container image, as built in [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md).
-1. Update the value  of the source respository as per [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md).
+1. Update the value of the package name with your container image, as built in [Activity 01](https://github.com/lmrs2/bh-aisec/blob/main/activities/01/readme.md).
+1. Update the value  of the source respository as per [Activity 01](https://github.com/lmrs2/bh-aisec/blob/main/activities/01/readme.md).
 
 ##### Call the evaluator in CI
 
 To evaluate the publish policy, the evaluator must be called from CI. It is up to teams to decide _when_ to do that. In this activity, we provide a helper workflow
-[.github/workflows/publish-image.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/publish-image.yml) that can be called manually for testing purposes.
+[.github/workflows/publish-image.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/publish-image.yml) that can be called manually for testing purposes.
 In practice, teams would call it automatically after building their containers.
 
 If the policy evaluation succeeds, the evaluator creates a publish attestation and signs it with [Sigstore](sigstore.dev). The attestation is stored along the container on the registry, [a-la-cosign](https://github.com/sigstore/cosign). NOTE: SLSA does not prescribe where to store the provenance, nor does it prescribe the use of Sigstore for signing.
 
 Follow these steps:
 
-1. Update the [organization workflow call](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/publish-image.yml#L37) that evaluates the publish policy.
-1. Update the [registry-username](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/.github/workflows/publish-image.yml#L43) to yours.
+1. Update the [organization workflow call](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/publish-image.yml#L37) that evaluates the publish policy.
+1. Update the [registry-username](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/publish-image.yml#L43) to yours.
 1. (Already done in Activity 01): Create a [docker regitry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access. 
 1. (Already done in Activity 01): Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~40s to complete. If all goes well, the workflow run will display a green icon.
@@ -109,7 +109,7 @@ Follow these steps:
 
 ##### Verify publish attestation manually
 
-To verify the publish attestation and inspect it, you can use cosign. Install [cosign](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#cosign).
+To verify the publish attestation and inspect it, you can use cosign. Install [cosign](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md#cosign).
 
 Make sure you have access to your image by authenticating to docker:
 
