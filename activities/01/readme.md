@@ -10,7 +10,7 @@ Building with a high-level SLSA builder prevents [build threats (E) "compromise 
 
 ### What you will need
 
-Install the [necessary software](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md).
+Install the [necessary software](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md).
 
 ### Provenance generation
 
@@ -29,24 +29,24 @@ Read the section [Getting started](https://github.com/slsa-framework/slsa-github
 
 #### Create the workflow
 
-Fork this repository [https://github.com/lmrs2/bh25-aisec-project1](https://github.com/lmrs2/bh25-aisec-project1) by clicking this [link](https://github.com/lmrs2/bh25-aisec-project1/fork).
+Fork this repository [https://github.com/lmrs2/bh-aisec-project1](https://github.com/lmrs2/bh-aisec-project1) by clicking this [link](https://github.com/lmrs2/bh-aisec-project1/fork).
 
-The repository contains a GitHub workflow [.github/workflow/build-echo-server.yml](https://github.com/lmrs2/bh25-aisec-project1/blob/main/.github/workflows/build-echo-server.yml) which builds and generates provenance for a hypothetical server. The file contains the following steps:
+The repository contains a GitHub workflow [.github/workflow/build-echo-server.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml) which builds and generates provenance for a hypothetical server. The file contains the following steps:
 
-1. [Authenticate](https://github.com/lmrs2/bh25-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L33-L41) to docker registry.
-1. [Build the container and push it to docker registry as "\<repository-name\>-echo-server"](https://github.com/lmrs2/bh25-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L49-L56). The image name is configured via an [environment variable at the top of the workflow](https://github.com/lmrs2/bh25-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L14). The container code is stored in this repository under directory [images/echo-server/](https://github.com/lmrs2/bh25-aisec-project1/blob/main/images/echo-server) and is a simple echo server.
-1. In a seperate job, we [call the container generator](https://github.com/lmrs2/bh25-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L64-L79) with the image name and digest. Note that is is IMPORTANT for the digest to be computed _without_ pulling the image from the registry, because an attacker / insider _could_ push a malicious image between our workflow push and pull.
-1. As a sanity step, we [pull the container and run it](https://github.com/lmrs2/bh25-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L81-L102).
+1. [Authenticate](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L33-L41) to docker registry.
+1. [Build the container and push it to docker registry as "\<repository-name\>-echo-server"](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L49-L56). The image name is configured via an [environment variable at the top of the workflow](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L14). The container code is stored in this repository under directory [images/echo-server/](https://github.com/lmrs2/bh-aisec-project1/blob/main/images/echo-server) and is a simple echo server.
+1. In a seperate job, we [call the container generator](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L64-L79) with the image name and digest. Note that is is IMPORTANT for the digest to be computed _without_ pulling the image from the registry, because an attacker / insider _could_ push a malicious image between our workflow push and pull.
+1. As a sanity step, we [pull the container and run it](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L81-L102).
 
 #### Run the workflow
 
 Follow these steps:
 
-1. Update the [REGISTRY_USERNAME](https://github.com/lmrs2/bh25-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L15) to your own docker registry username.
-1. Update the [hardcoded username ](https://github.com/lmrs2/bh25-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L75) used to store the provenance to registtry.
+1. Update the [REGISTRY_USERNAME](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L15) to your own docker registry username.
+1. Update the [hardcoded username ](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L75) used to store the provenance to registtry.
 1. Create a [docker regitry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access.
 2. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
-2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see [example run](https://github.com/lmrs2/bh25-aisec-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:51c374c1af56022fdc75aec399d9694e1559338544d78b788a515bdd7278ebf5`.
+2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" (see [example run](https://github.com/lmrs2/bh-aisec-project1/actions/runs/8329542362/job/22792213105)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:51c374c1af56022fdc75aec399d9694e1559338544d78b788a515bdd7278ebf5`.
 
 
 #### Verify provenance
@@ -65,9 +65,9 @@ To verify your container, use the following command:
 
 ```shell
 # Update the image as recorded in your logs. You will sit it printed under the "run" build.
-$ image=docker.io/lmrs2/bh25-aisec-project1-echo-server@sha256:321daeb68d28e7b8f7107f2b7b3af3a767e357415e349e13837addeda32b66da
+$ image=docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:321daeb68d28e7b8f7107f2b7b3af3a767e357415e349e13837addeda32b66da
 # Replace with your own repository.
-$ source_uri=github.com/lmrs2/bh25-aisec-project1
+$ source_uri=github.com/lmrs2/bh-aisec-project1
 $ path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --builder-id=https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml
 ```
 

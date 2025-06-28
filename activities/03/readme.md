@@ -10,7 +10,7 @@ Enforcing a deployment policy mitigates attack [(D) "use compromised dependency"
 
 ### What you will need
 
-Install the [necessary software](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md).
+Install the [necessary software](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md).
 
 ### Deployment policy and attestation
 

@@ -10,7 +10,7 @@ Enforcing a publish policy mitigates attacks [(F) "Upload modified package"](htt
 
 ### What you will need
 
-Install the [necessary software](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md).
+Install the [necessary software](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md).
 
 ### Publish policy and attestation
 
@@ -48,25 +48,25 @@ we will assume these protections are in place. If you wish to implement these pr
 
 #### Organization roots
 
-Fork this repository [https://github.com/lmrs2/bh25-aisec-organization](https://github.com/lmrs2/bh25-aisec-organization) by clicking this [link](https://github.com/lmrs2/bh25-aisec-organization/fork).
+Fork this repository [https://github.com/lmrs2/bh-aisec-organization](https://github.com/lmrs2/bh-aisec-organization) by clicking this [link](https://github.com/lmrs2/bh-aisec-organization/fork).
 
-Under directory [policies/publish](https://github.com/lmrs2/bh25-aisec-organization/tree/main/policies/publish) are the configuration files for the publish policy. The file maintained by the organization admins
-is [org.json](https://github.com/lmrs2/bh25-aisec-organization/tree/main/policies/publish/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
-each trusted root is a SLSA builder allowed to build projects for the organization, along with its corresponding SLSA level. For example, the [first listed builder](https://github.com/lmrs2/bh25-aisec-organization/blob/main/policies/publish/org.json#L5-L8) has `id:https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml`, `slsa_level:3` and is given the short name `github_generator_level_3`.
+Under directory [policies/publish](https://github.com/lmrs2/bh-aisec-organization/tree/main/policies/publish) are the configuration files for the publish policy. The file maintained by the organization admins
+is [org.json](https://github.com/lmrs2/bh-aisec-organization/tree/main/policies/publish/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
+each trusted root is a SLSA builder allowed to build projects for the organization, along with its corresponding SLSA level. For example, the [first listed builder](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/org.json#L5-L8) has `id:https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml`, `slsa_level:3` and is given the short name `github_generator_level_3`.
 
 #### Evaluator service
 
-The repository contains a GitHub workflow [.github/workflows/image-publisher.yml](https://github.com/lmrs2/bh25-aisec-organization/blob/main/.github/workflows/image-publisher.yml) which evaluates the publish policy. It contains the following logic:
+The repository contains a GitHub workflow [.github/workflows/image-publisher.yml](https://github.com/lmrs2/bh-aisec-organization/blob/main/.github/workflows/image-publisher.yml) which evaluates the publish policy. It contains the following logic:
 
-1. [Detects the refs](https://github.com/lmrs2/bh25-aisec-organization/blob/main/.github/workflows/image-publisher.yml#L47-L67) at which it was called by a project. This is due to a quirk of how GitHub reusable workflows work. You can ignore this part of the code.
-1. [Install the policy CLI](https://github.com/lmrs2/bh25-aisec-organization/blob/main/.github/workflows/image-publisher.yml#L116-L126).
-1. [Run the policy CLI](https://github.com/lmrs2/bh25-aisec-organization/blob/main/.github/workflows/image-publisher.yml#L110-L120).
+1. [Detects the refs](https://github.com/lmrs2/bh-aisec-organization/blob/main/.github/workflows/image-publisher.yml#L47-L67) at which it was called by a project. This is due to a quirk of how GitHub reusable workflows work. You can ignore this part of the code.
+1. [Install the policy CLI](https://github.com/lmrs2/bh-aisec-organization/blob/main/.github/workflows/image-publisher.yml#L106-L109).
+1. [Run the policy CLI](https://github.com/lmrs2/bh-aisec-organization/blob/main/.github/workflows/image-publisher.yml#L110-L119).
 
 #### Pre-submits
 
 Across the policy, there is an important invariant to maintain, which is that a package must be owned by at most _one_ team. In other words, we must ensure that across the policy,
 a package is only referenced once across all configuration files. For this, we make use of pre-submits run on pull requests.
-The pre-submits are configured in the workflow file [.github/workflows/pre-submit.publish-policy.yml](https://github.com/lmrs2/bh25-aisec-organization/blob/main/.github/workflows/pre-submit.publish-policy.yml).
+The pre-submits are configured in the workflow file [.github/workflows/pre-submit.publish-policy.yml](https://github.com/lmrs2/bh-aisec-organization/blob/main/.github/workflows/pre-submit.publish-policy.yml).
 
 An additional required pre-submit is to ensure that new team policy files are accompanied by a new CODEOWNER file. We leave this as [future work](#pre-submits-for-codeowner).
 
@@ -79,10 +79,10 @@ As explained in [repository protections](#repository-protections), for time cons
 
 ##### Configure the policy
 
-The file to be protected by the CODEOWNER file is [echo-server.json](https://github.com/lmrs2/bh25-aisec-organization/blob/main/policies/publish/echo-server.json) which describes the team policy for the container built in [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). The file contains the following sections:
+The file to be protected by the CODEOWNER file is [echo-server.json](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json) which describes the team policy for the container built in [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). The file contains the following sections:
 
-1. The [package](https://github.com/lmrs2/bh25-aisec-organization/blob/main/policies/publish/echo-server.json#L3) section describes the package to publish, i.e., [docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server](https://github.com/lmrs2/bh25-aisec-organization/blob/main/policies/publish/echo-server.json#L4) and will be used both for [staging and prod](https://github.com/lmrs2/bh25-aisec-organization/blob/main/policies/publish/echo-server.json#L7). NOTE: The environment (prod, staging) is optional.
-1. The [build](https://github.com/lmrs2/bh25-aisec-organization/blob/main/policies/publish/echo-server.json#L11) section describes how to build the container, i.e. it must be built from the source repository [github.com/slsa-framework/oss-na24-slsa-workshop-project1](https://github.com/lmrs2/bh25-aisec-organization/blob/main/policies/publish/echo-server.json#L14) by builder [github_generator_level_3](https://github.com/lmrs2/bh25-aisec-organization/blob/main/policies/publish/echo-server.json#L12).
+1. The [package](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L3) section describes the package to publish, i.e., [docker.io/lmrs2/bh-aisec-project1-echo-server](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L4) and will be used both for [staging and prod](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L7). NOTE: The environment (prod, staging) is optional.
+1. The [build](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L11) section describes how to build the container, i.e. it must be built from the source repository [github.com/slsa-framework/oss-na24-slsa-workshop-project1](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L14) by builder [github_generator_level_3](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/echo-server.json#L12).
 
 
 Follow these steps:
@@ -125,7 +125,7 @@ To verify a publish attestation, use the following command:
 # Update the image as recorded in your logs
 $ image=docker.io/laurentsimon/oss-na24-slsa-workshop-project1-echo-server@sha256:51c374c1af56022fdc75aec399d9694e1559338544d78b788a515bdd7278ebf5
 # Update the repository name storing your policies.
-$ creator_id="https://github.com/lmrs2/bh25-aisec-organization/.github/workflows/image-publisher.yml@refs/heads/main"
+$ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/image-publisher.yml@refs/heads/main"
 $ type=https://slsa.dev/publish/v0.1
 $ path/to/cosign verify-attestation "${image}" \
     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
