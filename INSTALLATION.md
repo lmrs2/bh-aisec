@@ -52,7 +52,7 @@ Install [Kyverno policy engine](https://kyverno.io) using the following commands
 $ kubectl create -f https://github.com/kyverno/kyverno/releases/download/v1.11.4/install.yaml
 # or a verbose mode enabled from this repository.
 # -dumpPayload=true and --v=6 for kyverno-admission-controller 
-$ kubectl create -f https://raw.githubusercontent.com/slsa-framework/oss-na24-slsa-workshop/main/activities/04/kyverno/install_verbose_v1.11.4.yml
+$ kubectl create -f https://raw.githubusercontent.com/lmrs2/bh-aisec/main/activities/04/kyverno/install_verbose_v1.11.4.yml
 ```
 
 You should now see Kyverno pods:
