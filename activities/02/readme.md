@@ -48,7 +48,7 @@ we will assume these protections are in place. If you wish to implement these pr
 
 #### Organization roots
 
-Fork this repository [https://github.com/lmrs2/bh-aisec-organization](https://github.com/lmrs2/bh-aisec-organization) by clicking this [link](https://github.com/lmrs2/bh-aisec-organization/fork). Navigate to the Action tab and enable the worksflows, as depicted in the image below:
+Fork this repository [https://github.com/lmrs2/bh-aisec-organization](https://github.com/lmrs2/bh-aisec-organization) by clicking this [link](https://github.com/lmrs2/bh-aisec-organization/fork). Navigate to the Actions tab and enable worksflows, as depicted in the image below:
 
 ![workflow image enable](https://raw.githubusercontent.com/lmrs2/bh-aisec/main/images/enable-workflows.jpg "How to enable workflows in your forked repository")
 

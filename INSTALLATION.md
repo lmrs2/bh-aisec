@@ -27,7 +27,7 @@ Install [cosign](https://github.com/sigstore/cosign?tab=readme-ov-file#installat
 Typicallly you can use:
 
 ```shell
-$ go install github.com/sigstore/cosign/v2/cmd/cosign@v2.1.1
+$ go install github.com/sigstore/cosign/v2/cmd/cosign@v2.5.2
 ```
 
 ## Minikube
@@ -45,7 +45,7 @@ commit: fd7ecd9c4599bef9f04c0986c4a0187f98a4396e
 
 ## Kyverno
 
-Install [Kyverno policy engine](https://kyverno.io):
+Install [Kyverno policy engine](https://kyverno.io) using the following commands:
 
 ```shell
 # Install either the official installation file

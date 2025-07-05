@@ -19,7 +19,7 @@ The admission controller is the component that deploys artifacts / containers. I
 1. Trusted roots, which is the metadata that defines:
     1. Which evaluators we trust - defined by their identity.
     1. Which protection type (e.g., service account, cluster ID) each evaluator is authoritative for.
-    1. Required protection types, which is an optional set of mandatory protection types.To be considered authentic and trusted, a deployment attestation must contain the required protection types. 
+    1. Required protection types, which is an optional set of mandatory protection types. To be considered authentic and trusted, a deployment attestation must contain the required protection types. 
 1. Mode of enforcement, such as "enforce" or "audit". This allows administrators to onboard new teams and roll out policy upgrades in stages.
 1. Failure handling, which configures how unexpected errors or timeouts during evaluation are handled. Fail open behavior admits deployments by default in such a scenario, whereas fail closed behavior defaults to a rejection. The low latency and reliability of using deployment attestations should make these occurrences rare in comparison to real time evaluation
 
@@ -33,13 +33,13 @@ In this workshop, we use the open source policy engine [Kyverno](https://kyverno
 
 #### cosign
 
-You should already have cosign installed as required for Activities [02](https://github.com/slsa-framework/oss-na24-slsa-workshop/tree/main/activities/02) and [03](https://github.com/slsa-framework/oss-na24-slsa-workshop/tree/main/activities/03). If that's not the case, follow the [installation instructions](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#cosign).
+You should already have cosign installed as required for Activities [02](https://github.com/lmrs2/bh-aisec/tree/main/activities/02) and [03](https://github.com/lmrs2/bh-aisec/tree/main/activities/03). If that's not the case, follow the [installation instructions](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md#cosign).
 
 #### Local Kubernetes
 
 In this demo, we use a local Kubernetes installation called [minikube](https://minikube.sigs.k8s.io/docs/start/).
 
-To install minikube, follow the [instructions](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#minikube).
+To install minikube, follow the [instructions](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md#minikube).
 
 Start minikube:
 
@@ -56,7 +56,7 @@ $ alias kubectl="minikube kubectl --"
 
 #### Kyverno policy engine
 
-Install [Kyverno policy engine](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/INSTALLATION.md#kyverno):
+Install [Kyverno policy engine](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md#kyverno):
 
 Optional: Open a new terminal and monitor the logs for the admission controller and keep this terminal open:
 
@@ -67,16 +67,16 @@ $ kubectl -n kyverno logs -f kyverno-admission-controller-6dd8fd446c-4qck5
 
 ### Admission controller configuration
 
-We need to configure Kyverno to verify the deployment attestation we created in [Activity 03](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
+We need to configure Kyverno to verify the deployment attestation we created in [Activity 03](https://github.com/lmrs2/bh-aisec/blob/main/activities/03/readme.md).
 
 There are two relevant files to configure it:
 
-1. A verification configuration file containing the trusted roots, in [kyverno/slsa-configuration.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml).
-1. A Kyverno enforcer file [kyverno/slsa-enforcer.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-enforcer.yml) that verifies the deployment attestation using the trusted roots.
+1. A verification configuration file containing the trusted roots, in [kyverno/slsa-configuration.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/kyverno/slsa-configuration.yml).
+1. A Kyverno enforcer file [kyverno/slsa-enforcer.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/kyverno/slsa-enforcer.yml) that verifies the deployment attestation using the trusted roots.
 
 Clone the repository locally. Then follow the steps:
 
-1. Update the [attestation_creator](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/kyverno/slsa-configuration.yml#L16) field in the verification configuration file. Set it to the value of the evaluator identity that created your deployment attestation in [Activity 03](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/03/readme.md).
+1. Update the [attestation_creator](https://github.com/lmrs2/bh-aisec-project1/blob/main/kyverno/slsa-configuration.yml#L16) field in the verification configuration file. Set it to the value of the evaluator identity that created your deployment attestation in [Activity 03](https://github.com/lmrs2/bh-aisec/blob/main/activities/03/readme.md).
 1. Install the policy engine
 
 ```shell
@@ -86,13 +86,13 @@ $ kubectl apply -f kyverno/slsa-enforcer.yml
 
 ### Deploy a pod
 
-Let's deploy the container we built in [Activity 01](https://github.com/slsa-framework/oss-na24-slsa-workshop/blob/main/activities/01/readme.md). For that, we will use the [k8/echo-server-deployment.yml](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml) pod definition.
+Let's deploy the container we built in [Activity 01](https://github.com/lmrs2/bh-aisec/blob/main/activities/01/readme.md). For that, we will use the [k8/echo-server-deployment.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment.yml) pod definition.
 
 
 Follow these steps:
 
-1. Edit the [image](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the pod definition.
-1. WARNING: Since we are running Kubernetes locally, there is no google service account to match against. To simulate one exists for our demo, we make the assumption that its value is exposed via the ["cloud.google.com.v1/service_account" annotation](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18). Set the value to the service account configured in your deployment policy for the container.
+1. Edit the [image](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment.yml#L23) in the pod definition.
+1. WARNING: Since we are running Kubernetes locally, there is no google service account to match against. To simulate one exists for our demo, we make the assumption that its value is exposed via the ["cloud.google.com.v1/service_account" annotation](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment.yml#L18). Set the value to the service account configured in your deployment policy for the container.
 1. Deploy the container
 
 ```shell
@@ -114,7 +114,7 @@ c482b133-13b1-4678-bb2c-0de2d44c868d   Deployment   echo-server-deployment      
 
 Now update the pod definition with an image that is _not_ allowed to run under this service account:
 
-1. Edit the [image](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L23) in the deployment file. 
+1. Edit the [image](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment.yml#L23) in the deployment file. 
 
 ```shell
 $ kubectl apply -f k8/echo-server-deployment.yml
@@ -123,7 +123,7 @@ $ kubectl apply -f k8/echo-server-deployment.yml
 
 Update the pod definition back to its original value.
 
-1. Edit the ["cloud.google.com.v1/service_account" annotation](https://github.com/slsa-framework/oss-na24-slsa-workshop-project1/blob/main/k8/echo-server-deployment.yml#L18) to a different service account.
+1. Edit the ["cloud.google.com.v1/service_account" annotation](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment.yml#L18) to a different service account.
 
 ```shell
 $ kubectl apply -f k8/echo-server-deployment.yml
