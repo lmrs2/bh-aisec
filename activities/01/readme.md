@@ -29,7 +29,9 @@ Read the section [Getting started](https://github.com/slsa-framework/slsa-github
 
 #### Create the workflow
 
-Fork this repository [https://github.com/lmrs2/bh-aisec-project1](https://github.com/lmrs2/bh-aisec-project1) by clicking this [link](https://github.com/lmrs2/bh-aisec-project1/fork).
+Fork this repository [https://github.com/lmrs2/bh-aisec-project1](https://github.com/lmrs2/bh-aisec-project1) by clicking this [link](https://github.com/lmrs2/bh-aisec-project1/fork). Navigate to the Action tab and enable the worksflows, as depicted in the image below:
+
+![workflow image enable](../images/enable-workflows.jpg "How to enable workflows in your forked repository")
 
 The repository contains a GitHub workflow [.github/workflow/build-echo-server.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml) which builds and generates provenance for a hypothetical server. The file contains the following steps:
 
