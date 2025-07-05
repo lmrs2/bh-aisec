@@ -50,7 +50,7 @@ we will assume these protections are in place. If you wish to implement these pr
 
 Fork this repository [https://github.com/lmrs2/bh-aisec-organization](https://github.com/lmrs2/bh-aisec-organization) by clicking this [link](https://github.com/lmrs2/bh-aisec-organization/fork). Navigate to the Action tab and enable the worksflows, as depicted in the image below:
 
-![workflow image enable](../images/enable-workflows.jpg "How to enable workflows in your forked repository")
+![workflow image enable](https://raw.githubusercontent.com/lmrs2/bh-aisec/main/images/enable-workflows.jpg "How to enable workflows in your forked repository")
 
 Under directory [policies/publish](https://github.com/lmrs2/bh-aisec-organization/tree/main/policies/publish) are the configuration files for the publish policy. The file maintained by the organization admins
 is [org.json](https://github.com/lmrs2/bh-aisec-organization/tree/main/policies/publish/org.json). This file contains a list of "trusted roots", which is a list of trusted entities. In this demo,
