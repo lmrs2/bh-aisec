@@ -58,7 +58,7 @@ $ alias kubectl="minikube kubectl --"
 
 Install [Kyverno policy engine](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md#kyverno):
 
-Optional: Open a new terminal and monitor the logs for the admission controller and keep this terminal open:
+IMPORTANT: Open a new terminal and monitor the logs for the admission controller and keep this terminal open:
 
 ```shell
 # Replace 'kyverno-admission-controller-6dd8fd446c-4qck5' with the value for your installation (previous command).
@@ -112,13 +112,32 @@ NAME                                   KIND         NAME                        
 c482b133-13b1-4678-bb2c-0de2d44c868d   Deployment   echo-server-deployment                    1      0      0      0       0      4m36s
 ```
 
+Now expose the service:
+
+```shell
+$ kubectl expose deployment echo-server-deployment --type=NodePort --port=8081 --target-port=8081
+```
+
+Get the service URL:
+
+```shell
+$ minikube service echo-server-deployment --url
+http://127.0.0.1:63111
+```
+
+Send a command to the service:
+
+```shell
+$ curl -s -X POST -H "Content-Type: application/json"      -d '{"image": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="}' http://127.0.0.1:63111/
+```
+
 Now update the pod definition with an image that is _not_ allowed to run under this service account:
 
 1. Edit the [image](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment.yml#L23) in the deployment file. 
 
 ```shell
 $ kubectl apply -f k8/echo-server-deployment.yml
-...THIS SHOULD FAIL...
+...THIS SHOULD FAIL... WATCH OUT YOUR LOGS
 ```
 
 Update the pod definition back to its original value.
@@ -127,7 +146,7 @@ Update the pod definition back to its original value.
 
 ```shell
 $ kubectl apply -f k8/echo-server-deployment.yml
-...THIS SHOULD FAIL...
+...THIS SHOULD FAIL... WATCH OUT YOUR LOGS
 ```
 
 ### Future work

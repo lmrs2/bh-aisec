@@ -48,11 +48,10 @@ commit: fd7ecd9c4599bef9f04c0986c4a0187f98a4396e
 Install [Kyverno policy engine](https://kyverno.io) using the following commands:
 
 ```shell
-# Install either the official installation file
-$ kubectl create -f https://github.com/kyverno/kyverno/releases/download/v1.11.4/install.yaml
-# or a verbose mode enabled from this repository.
+# Original file is https://github.com/kyverno/kyverno/releases/download/v1.13.6/install.yaml
+# Verbose mode is enabled in the patched file below.
 # -dumpPayload=true and --v=6 for kyverno-admission-controller 
-$ kubectl create -f https://raw.githubusercontent.com/lmrs2/bh-aisec/main/activities/04/kyverno/install_verbose_v1.11.4.yml
+$ kubectl create -f https://raw.githubusercontent.com/lmrs2/bh-aisec/main/activities/04/kyverno/install_verbose_v1.13.6.yml
 ```
 
 You should now see Kyverno pods:
@@ -65,6 +64,8 @@ kyverno       kyverno-background-controller-54f5d9b6f4-whkff   1/1     Running  
 kyverno       kyverno-cleanup-controller-7c5f8bcd79-pwq2d      1/1     Running   0               5s
 kyverno       kyverno-reports-controller-7bdb457748-4xbvj      1/1     Running   0               5s
 ```
+
+IMPORTANT: If the status of your pod does not show `Running` (e.g. `ContainerCreating`, `Init:0/1`, `PodInitializing` or other), wait until their status changes to `Running`.
 
 ### jq
 
