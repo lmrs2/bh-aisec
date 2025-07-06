@@ -112,12 +112,6 @@ NAME                                   KIND         NAME                        
 c482b133-13b1-4678-bb2c-0de2d44c868d   Deployment   echo-server-deployment                    1      0      0      0       0      4m36s
 ```
 
-Now expose the service:
-
-```shell
-$ kubectl expose deployment echo-server-deployment --type=NodePort --port=8081 --target-port=8081
-```
-
 Get the service URL:
 
 ```shell
