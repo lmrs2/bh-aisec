@@ -115,7 +115,7 @@ c482b133-13b1-4678-bb2c-0de2d44c868d   Deployment   echo-server-deployment      
 Get the service URL:
 
 ```shell
-$ minikube service echo-server-deployment --url
+$ minikube service echo-server-service --url
 http://127.0.0.1:63111
 ```
 
