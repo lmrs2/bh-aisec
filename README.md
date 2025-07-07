@@ -33,6 +33,10 @@ TODO
 What's next: source track, dependency track
 project1 -> inferrence
 
+add goal of project in slides and activity 4?
+
 activity 2: needs update
 In this activity, we will focus on the integrity protections applied to an artifact during its development, i.e. its minimum SLSA level. This will help us achieve the first goal of the workshop, which is to ensure that all produced containers are protected against tampering across the SDLC.
+
+ask users to red the python code. Add comment and in tutorial that we will update later to output a prediction
 

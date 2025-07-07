@@ -33,20 +33,20 @@ Fork this repository [https://github.com/lmrs2/bh-aisec-project1](https://github
 
 ![workflow image enable](https://raw.githubusercontent.com/lmrs2/bh-aisec/main/images/enable-workflows.jpg "How to enable workflows in your forked repository")
 
-The repository contains a GitHub workflow [.github/workflow/build-echo-server.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml) which builds and generates provenance for a hypothetical server. The file contains the following steps:
+The repository contains the code for a hypothetical [echo-server](https://github.com/lmrs2/bh-aisec-project1/tree/main/images/echo-server): the [server](https://github.com/lmrs2/bh-aisec-project1/blob/main/images/echo-server/app.py) listens on port 8081 and receives a JSON-formatted request containing an [image](https://github.com/lmrs2/bh-aisec-project1/blob/main/images/echo-server/app.py#L22) field; decodes it and responds with a [decoded](https://github.com/lmrs2/bh-aisec-project1/blob/main/images/echo-server/app.py#L35) field. In [Activity 05](https://github.com/lmrs2/bh-aisec/tree/main/activities/05), we'll update the server to predict digit from the image. The repository also contains a GitHub workflow [.github/workflow/build-echo-server.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml) which builds and generates provenance for the echo-server. The workflow file contains the following steps:
 
 1. [Authenticate](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L33-L41) to docker registry.
 1. [Build the container and push it to docker registry as "\<repository-name\>-echo-server"](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L49-L56). The image name is configured via an [environment variable at the top of the workflow](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L14). The container code is stored in this repository under directory [images/echo-server/](https://github.com/lmrs2/bh-aisec-project1/blob/main/images/echo-server) and is a simple echo server.
-1. In a seperate job, we [call the container generator](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L64-L79) with the image name and digest. Note that is is IMPORTANT for the digest to be computed _without_ pulling the image from the registry, because an attacker / insider _could_ push a malicious image between our workflow push and pull.
-1. As a sanity step, we [pull the container and run it](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L81-L102).
+1. In a seperate job, we [call the container generator](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L64-L79) with the image name and digest. Note that it is IMPORTANT for the digest to be computed _without_ pulling the image from the registry, because an attacker / insider _could_ push a malicious image between our workflow push and pull.
+1. As a sanity step, we [pull the container](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L81-L102).
 
 #### Run the workflow
 
 Follow these steps:
 
 1. Update the [REGISTRY_USERNAME](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L15) to your own docker registry username.
-1. Update the [hardcoded username ](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L75) used to store the provenance to registtry.
-1. Create a [docker regitry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access.
+1. Update the [hardcoded username ](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L75) used to store the provenance to registry.
+1. Create a [docker registry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access.
 2. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" sttept "Run it" (see [example run](https://github.com/lmrs2/bh-aisec-project1/actions/runs/15938669578/job/44963419298)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:7e0c03e174f7f64ab5c4a1ce9cabd3e01d017d73a802597ad2b4da8f846e6a58`.
 

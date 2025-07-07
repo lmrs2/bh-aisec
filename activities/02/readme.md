@@ -90,7 +90,7 @@ The file to be protected by the CODEOWNER file is [echo-server.json](https://git
 Follow these steps:
 
 1. Update the value of the package name with your container image, as built in [Activity 01](https://github.com/lmrs2/bh-aisec/blob/main/activities/01/readme.md).
-1. Update the value  of the source respository as per [Activity 01](https://github.com/lmrs2/bh-aisec/blob/main/activities/01/readme.md).
+1. Update the value of the source respository as per [Activity 01](https://github.com/lmrs2/bh-aisec/blob/main/activities/01/readme.md).
 
 ##### Call the evaluator in CI
 
