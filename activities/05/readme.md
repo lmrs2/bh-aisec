@@ -122,3 +122,43 @@ $ path/to/cosign verify-attestation "${image}" \
 ```
 
 NOTE: The name and schema of this attestation is under discussion in the community and is subject to changes.
+
+## Create deployment attestation for the model
+
+We will deploy the model in the same service account as in [Activity 03](https://github.com/lmrs2/bh-aisec/tree/main/activities/03), thus we simply need to:
+
+1. Update the list of [packages](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/deployment/servers-prod.json#L19) using the model container we published in the previous section.
+
+##### Call the evaluator in CI
+
+Follow these steps:
+
+1. Update the [organization workflow call](https://github.com/lmrs2/bh-aisec-model/blob/main/.github/workflows/deploy-model.yml#L41) that evaluates the deployment policy.
+1. Update the [registry-username](https://github.com/lmrs2/bh-aisec-model/blob/main/.github/workflows/deploy-model.yml#L47) to yours.
+1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~40s to complete. If all goes well, the workflow run will display a green icon.
+
+##### Verify deployment attestation manually
+
+To verify the publish attestation and inspect it, you can use cosign. Install [cosign](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md#cosign).
+
+Make sure you have access to your image by authenticating to docker:
+
+```shell
+$ REGISTRY_TOKEN=<your-token>
+$ REGISTRY_USERNAME=<registry-username>
+$ docker login -u "${REGISTRY_USERNAME}" "${REGISTRY_TOKEN}"
+```
+
+To verify a deployment attestation, use the following command:
+
+```shell
+# Update the image as recorded in your logs
+$ image=docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:7e0c03e174f7f64ab5c4a1ce9cabd3e01d017d73a802597ad2b4da8f846e6a58
+# Update the repository name storing your policies.
+$ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/image-deployer.yml@refs/heads/main"
+$ type=https://slsa.dev/deployment/v0.1
+$ path/to/cosign verify-attestation "${image}" \
+    --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+    --certificate-identity "${creator_id}" 
+    --type "${type}" | jq -r '.payload' | base64 -d | jq
+```
