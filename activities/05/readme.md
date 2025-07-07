@@ -88,8 +88,8 @@ If the policy evaluation succeeds, the evaluator creates a publish attestation a
 
 Follow these steps:
 
-1. Update the [organization workflow call](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/publish-image.yml#L37) that evaluates the publish policy.
-1. Update the [registry-username](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/publish-image.yml#L43) to yours.
+1. Update the [organization workflow call](https://github.com/lmrs2/bh-aisec-model/blob/main/.github/workflows/publish-model.yml#L37) that evaluates the publish policy.
+1. Update the [registry-username](https://github.com/lmrs2/bh-aisec-model/blob/main/.github/workflows/publish-model.yml#L43) to yours.
 1. (Already done in Activity 01): Create a [docker regitry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access. 
 1. (Already done in Activity 01): Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~40s to complete. If all goes well, the workflow run will display a green icon.
@@ -111,7 +111,7 @@ To verify a publish attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs - This is the same as in Activity 01
-$ image=docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:7e0c03e174f7f64ab5c4a1ce9cabd3e01d017d73a802597ad2b4da8f846e6a58
+$ image=docker.io/lmrs2/bh-aisec-model-inferrence@sha256:7e0c03e174f7f64ab5c4a1ce9cabd3e01d017d73a802597ad2b4da8f846e6a58
 # Update the repository name storing your policies.
 $ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/image-publisher.yml@refs/heads/main"
 $ type=https://slsa.dev/publish/v0.1
