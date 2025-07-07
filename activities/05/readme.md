@@ -111,7 +111,7 @@ To verify a publish attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs - This is the same as in Activity 01
-$ image=docker.io/lmrs2/bh-aisec-model-inferrence@sha256:7e0c03e174f7f64ab5c4a1ce9cabd3e01d017d73a802597ad2b4da8f846e6a58
+$ image=docker.io/lmrs2/bh-aisec-model-inferrence@sha256:12f69256c39dc5d6933d9d1c9cceb9242acd3db2cc00228732e5cd21d2b0327e
 # Update the repository name storing your policies.
 $ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/image-publisher.yml@refs/heads/main"
 $ type=https://slsa.dev/publish/v0.1
