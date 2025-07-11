@@ -20,6 +20,13 @@ Install [docker](https://docs.docker.com/engine/install/).
 
 Install [slsa-verifier](https://github.com/slsa-framework/slsa-verifier?tab=readme-ov-file#option-1-install-via-go).
 
+Typically you can use:
+
+```shell
+$ go install github.com/slsa-framework/slsa-verifier/v2/cli/slsa-verifier@v2.7.1
+$ alias slsa-verifier="$(go env GOPATH)/bin/slsa-verifier"
+```
+
 ## Cosign
 
 Install [cosign](https://github.com/sigstore/cosign?tab=readme-ov-file#installation).
@@ -28,6 +35,7 @@ Typicallly you can use:
 
 ```shell
 $ go install github.com/sigstore/cosign/v2/cmd/cosign@v2.5.2
+$ alias cosign="$(go env GOPATH)/bin/cosign"
 ```
 
 ## Minikube
