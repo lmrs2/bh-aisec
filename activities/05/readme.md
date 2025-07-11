@@ -1,5 +1,5 @@
 
-# 05 - Adding support for model training and inferrence
+# 05 - Support for model training and inference
 
 ## Highlight
 
@@ -12,6 +12,15 @@ In this final activity, we will
 ### What you will need
 
 Install the [necessary software](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md).
+
+## Building the inference container
+
+We udate the python echo-server to perform digit predictions. For this, you must:
+
+1. Uncomment [this line](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/build-echo-server.yml#L55) to set the Dockerfile to [Dockerfile_predict](https://github.com/lmrs2/bh-aisec-project1/blob/main/images/echo-server/Dockerfile_predict). Instead of the prior [app.py](https://github.com/lmrs2/bh-aisec-project1/blob/main/images/echo-server/app.py), it builds the [app_predict.py](https://github.com/lmrs2/bh-aisec-project1/blob/main/images/echo-server/app_predict.py).
+1. Build the container as in [Activity 01](https://github.com/laurentsimon/bh-aisec/tree/main/activities/01).
+1. Publish the container as in [Activity 02](https://github.com/laurentsimon/bh-aisec/tree/main/activities/02)
+1. Generate the publish attestation as in [Activity 03](https://github.com/laurentsimon/bh-aisec/tree/main/activities/01).
 
 ## Training the model
 
@@ -37,7 +46,7 @@ Follow these steps (similar to [Activity 01](https://github.com/lmrs2/bh-aisec/t
 1. Update the [hardcoded username ](https://github.com/lmrs2/bh-aisec-model/blob/main/.github/workflows/train-model.yml#L90) used to store the provenance to registry.
 1. Create a [docker registry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access.
 2. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
-2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" sttept "Run it" (see [example run](https://github.com/lmrs2/bh-aisec-model/actions/runs/16094432352)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/lmrs2/bh-aisec-model-inferrence@sha256:12f69256c39dc5d6933d9d1c9cceb9242acd3db2cc00228732e5cd21d2b0327e`.
+2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" sttept "Run it" (see [example run](https://github.com/lmrs2/bh-aisec-model/actions/runs/16094432352)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/lmrs2/bh-aisec-model-inference@sha256:12f69256c39dc5d6933d9d1c9cceb9242acd3db2cc00228732e5cd21d2b0327e`.
 
 ### Verify provenance
 
@@ -55,7 +64,7 @@ To verify your container, use the following command:
 
 ```shell
 # Update the image as recorded in your logs. You will sit it printed under the "run" build.
-$ image=docker.io/lmrs2/bh-aisec-model-inferrence@sha256:12f69256c39dc5d6933d9d1c9cceb9242acd3db2cc00228732e5cd21d2b0327e
+$ image=docker.io/lmrs2/bh-aisec-model-inference@sha256:12f69256c39dc5d6933d9d1c9cceb9242acd3db2cc00228732e5cd21d2b0327e
 # Replace with your own repository.
 $ source_uri=github.com/lmrs2/bh-aisec-model
 $ path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --builder-id=https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml
@@ -65,12 +74,12 @@ $ path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --b
 
 ### Configure the policy
 
-Like we did in [Activity 02](https://github.com/lmrs2/bh-aisec/tree/main/activities/02) for the echo-server, we need to crate apublish attestation to publish our model.
+Like we did in [Activity 02](https://github.com/lmrs2/bh-aisec/tree/main/activities/02) for the echo-server, we need to create apublish attestation to publish our model.
 
-The file [model-inferrence.json](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inferrence.json) (which, in a real delpoyment, would be protected by a CODEOWNER file), describes the team policy for the model we trained. The file contains the following sections:
+The file [model-inference.json](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inference.json) (which, in a real delpoyment, would be protected by a CODEOWNER file), describes the team policy for the model we trained. The file contains the following sections:
 
-1. The [package](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inferrence.json#L3) section describes the package to publish, i.e., [docker.io/lmrs2/bh-aisec-model-inferrence](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inferrence.json#L4) and will be used both for [staging and prod](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inferrence.json#L7). NOTE: The environment (prod, staging) is optional.
-1. The [build](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inferrence.json#L11) section describes how to train the model, i.e. it must be trained using code from the source repository [github.com/lmrs2/bh-aisec-model](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inferrence.json#L14) by builder [github_generator_level_3](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inferrence.json#L12).
+1. The [package](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inference.json#L3) section describes the package to publish, i.e., [docker.io/lmrs2/bh-aisec-model-inference](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inference.json#L4) and will be used both for [staging and prod](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inference.json#L7). NOTE: The environment (prod, staging) is optional.
+1. The [build](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inference.json#L11) section describes how to train the model, i.e. it must be trained using code from the source repository [github.com/lmrs2/bh-aisec-model](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inference.json#L14) by builder [github_generator_level_3](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inference.json#L12).
 
 
 Follow these steps:
@@ -111,7 +120,7 @@ To verify a publish attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs - This is the same as in Activity 01
-$ image=docker.io/lmrs2/bh-aisec-model-inferrence@sha256:12f69256c39dc5d6933d9d1c9cceb9242acd3db2cc00228732e5cd21d2b0327e
+$ image=docker.io/lmrs2/bh-aisec-model-inference@sha256:12f69256c39dc5d6933d9d1c9cceb9242acd3db2cc00228732e5cd21d2b0327e
 # Update the repository name storing your policies.
 $ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/image-publisher.yml@refs/heads/main"
 $ type=https://slsa.dev/publish/v0.1
@@ -161,4 +170,59 @@ $ path/to/cosign verify-attestation "${image}" \
     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
     --certificate-identity "${creator_id}" 
     --type "${type}" | jq -r '.payload' | base64 -d | jq
+```
+
+## Make the model available to the cluster
+
+### Download the model
+Now that we have verified that our model container is ready for deployment, we can extract the actual model file. We simulate what the control plane would do before making the model available to the inference server. 
+
+```shell
+# This is where we will store our model
+mkdir my_local_data
+# Update with your model
+MODEL_IMAGE="docker.io/lmrs2/bh-aisec-model-inference@sha256:6d27904f0ac57a8ecaa64410ce8164fd271e6e61f92edaf9cef14a564351f499"
+docker create --name tmp_container $MODEL_IMAGE
+docker cp tmp_container:/mnist_classifier.pth my_local_data/mnist_classifier.pth
+docker rm tmp_container
+```
+
+### Mount the model in the cluster
+
+We assume minikube and kyverno are running, as per [Activity 04](https://github.com/laurentsimon/bh-aisec/tree/main/activities/04).
+
+Run the following command (it if blocks the terminal, add `&` to the command):
+
+```shell
+$ minikube mount "$(pwd)/my_local_data:/mnt/local_data"
+```
+
+You can verify that the mount is successful using:
+
+```shell
+$ minikube ssh
+$ ls -l /mnt/local_data/
+mnist_classifier.pth
+$ exit
+```
+
+### Start our deployment
+
+To start the deployment:
+
+1. Update the image in 
+1. Start the deployment and service:
+
+```shell
+$ kubectl apply -f bh-aisec-project1/k8/echo-server-deployment_predict.yml 
+```
+
+As in [Activity 04](https://github.com/laurentsimon/bh-aisec/tree/main/activities/04), try updating the echo-server image and validate that the policy denies it.
+
+### Test your prediction server
+
+Use images from https://huggingface.co/datasets/ylecun/mnist.
+
+```shell
+$ python bh-aisec-project1/images/echo-server/client_repdict.py ./digit4.png http://localhost:8081/classify/v0
 ```
