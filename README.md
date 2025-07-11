@@ -19,7 +19,7 @@ Install the [necessary software](./INSTALLATION.md).
 4. [Activity 02: Publish policy](./activities/02/readme.md)
 5. [Activity 03: Deployment policy](./activities/03/readme.md)
 6. [Activity 04: Kyverno setup](./activities/04/readme.md)
-8. [Activity 05: Model integrity protection](./activities/05/readme.md)
+8. [Activity 05: Support for model training and inference](./activities/05/readme.md)
 
  
 TODO
