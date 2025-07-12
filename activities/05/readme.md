@@ -228,6 +228,6 @@ http://192.168.49.2:32346
 Use images from https://huggingface.co/datasets/ylecun/mnist.
 
 ```shell
-# Update the URL to the one retrned by the command above.
+# Update the URL to the one returned by the command above.
 $ python bh-aisec-project1/images/echo-server/client_predict.py ./digit4.png http://192.168.49.2:32346
 ```
