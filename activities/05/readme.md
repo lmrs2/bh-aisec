@@ -46,7 +46,7 @@ Follow these steps (similar to [Activity 01](https://github.com/lmrs2/bh-aisec/t
 1. Update the [hardcoded username ](https://github.com/lmrs2/bh-aisec-model/blob/main/.github/workflows/train-model.yml#L90) used to store the provenance to registry.
 1. Create a [docker registry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access.
 2. Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
-2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" sttept "Run it" (see [example run](https://github.com/lmrs2/bh-aisec-model/actions/runs/16094432352)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/lmrs2/bh-aisec-model-inference@sha256:12f69256c39dc5d6933d9d1c9cceb9242acd3db2cc00228732e5cd21d2b0327e`.
+2. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~2mn to complete. If all goes well, the workflow run will display a green icon. Click on the job run called "run" sttept "Run it" (see [example run](https://github.com/lmrs2/bh-aisec-model/actions/runs/16094432352)). Note the name of the container displayed in the logs. In the example above, it is `docker.io/lmrs2/bh-aisec-model-inference@sha256:b694e56c2c4c60a3e771d7dde95e26c282e1bd6a30a7e8a46c6dc986c54be906`.
 
 ### Verify provenance
 
@@ -64,7 +64,7 @@ To verify your container, use the following command:
 
 ```shell
 # Update the image as recorded in your logs. You will sit it printed under the "run" build.
-$ image=docker.io/lmrs2/bh-aisec-model-inference@sha256:12f69256c39dc5d6933d9d1c9cceb9242acd3db2cc00228732e5cd21d2b0327e
+$ image=docker.io/lmrs2/bh-aisec-model-inference@sha256:b694e56c2c4c60a3e771d7dde95e26c282e1bd6a30a7e8a46c6dc986c54be906
 # Replace with your own repository.
 $ source_uri=github.com/lmrs2/bh-aisec-model
 $ path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --builder-id=https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml
@@ -74,7 +74,7 @@ $ path/to/slsa-verifier verify-image "${image}" --source-uri "${source_uri}" --b
 
 ### Configure the policy
 
-Like we did in [Activity 02](https://github.com/lmrs2/bh-aisec/tree/main/activities/02) for the echo-server, we need to create apublish attestation to publish our model.
+Like we did in [Activity 02](https://github.com/lmrs2/bh-aisec/tree/main/activities/02) for the echo-server, we need to create a publish attestation to publish our model.
 
 The file [model-inference.json](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/publish/model-inference.json) (which, in a real delpoyment, would be protected by a CODEOWNER file), describes the team policy for the model we trained. The file contains the following sections:
 
@@ -120,7 +120,7 @@ To verify a publish attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs - This is the same as in Activity 01
-$ image=docker.io/lmrs2/bh-aisec-model-inference@sha256:12f69256c39dc5d6933d9d1c9cceb9242acd3db2cc00228732e5cd21d2b0327e
+$ image=docker.io/lmrs2/bh-aisec-model-inference@sha256:b694e56c2c4c60a3e771d7dde95e26c282e1bd6a30a7e8a46c6dc986c54be906
 # Update the repository name storing your policies.
 $ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/image-publisher.yml@refs/heads/main"
 $ type=https://slsa.dev/publish/v0.1
@@ -129,8 +129,6 @@ $ path/to/cosign verify-attestation "${image}" \
     --certificate-identity "${creator_id}" 
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
-
-NOTE: The name and schema of this attestation is under discussion in the community and is subject to changes.
 
 ## Create deployment attestation for the model
 
@@ -162,7 +160,7 @@ To verify a deployment attestation, use the following command:
 
 ```shell
 # Update the image as recorded in your logs
-$ image=docker.io/lmrs2/bh-aisec-project1-echo-server@sha256:7e0c03e174f7f64ab5c4a1ce9cabd3e01d017d73a802597ad2b4da8f846e6a58
+$ image=docker.io/lmrs2/bh-aisec-model-inference@sha256:b694e56c2c4c60a3e771d7dde95e26c282e1bd6a30a7e8a46c6dc986c54be906
 # Update the repository name storing your policies.
 $ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/image-deployer.yml@refs/heads/main"
 $ type=https://slsa.dev/deployment/v0.1
@@ -181,7 +179,7 @@ Now that we have verified that our model container is ready for deployment, we c
 # This is where we will store our model
 mkdir my_local_data
 # Update with your model
-MODEL_IMAGE="docker.io/lmrs2/bh-aisec-model-inference@sha256:6d27904f0ac57a8ecaa64410ce8164fd271e6e61f92edaf9cef14a564351f499"
+MODEL_IMAGE="docker.io/lmrs2/bh-aisec-model-inference@sha256:b694e56c2c4c60a3e771d7dde95e26c282e1bd6a30a7e8a46c6dc986c54be906"
 docker create --name tmp_container $MODEL_IMAGE
 docker cp tmp_container:/mnist_classifier.pth my_local_data/mnist_classifier.pth
 docker rm tmp_container
@@ -210,7 +208,7 @@ $ exit
 
 To start the deployment:
 
-1. Update the image in 
+1. Update the image in [bh-aisec-project1/k8/echo-server-deployment_predict.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment_predict.yml#L27)
 1. Start the deployment and service:
 
 ```shell
