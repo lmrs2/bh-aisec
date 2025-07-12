@@ -126,7 +126,7 @@ $ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/i
 $ type=https://slsa.dev/publish/v0.1
 $ path/to/cosign verify-attestation "${image}" \
     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-    --certificate-identity "${creator_id}" 
+    --certificate-identity "${creator_id}"  \
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
 
@@ -166,7 +166,7 @@ $ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/i
 $ type=https://slsa.dev/deployment/v0.1
 $ path/to/cosign verify-attestation "${image}" \
     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-    --certificate-identity "${creator_id}" 
+    --certificate-identity "${creator_id}" \
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
 
@@ -177,12 +177,12 @@ Now that we have verified that our model container is ready for deployment, we c
 
 ```shell
 # This is where we will store our model
-mkdir my_local_data
+$ mkdir my_local_data
 # Update with your model
-MODEL_IMAGE="docker.io/lmrs2/bh-aisec-model-inference@sha256:b694e56c2c4c60a3e771d7dde95e26c282e1bd6a30a7e8a46c6dc986c54be906"
-docker create --name tmp_container $MODEL_IMAGE
-docker cp tmp_container:/mnist_classifier.pth my_local_data/mnist_classifier.pth
-docker rm tmp_container
+$ MODEL_IMAGE="docker.io/lmrs2/bh-aisec-model-inference@sha256:b694e56c2c4c60a3e771d7dde95e26c282e1bd6a30a7e8a46c6dc986c54be906"
+$ docker create --name tmp_container $MODEL_IMAGE
+$ docker cp tmp_container:/mnist_classifier.pth my_local_data/mnist_classifier.pth
+$ docker rm tmp_container
 ```
 
 ### Mount the model in the cluster
@@ -208,7 +208,7 @@ $ exit
 
 To start the deployment:
 
-1. Update the image in [bh-aisec-project1/k8/echo-server-deployment_predict.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment_predict.yml#L27)
+1. Update the image in [bh-aisec-project1/k8/echo-server-deployment_predict.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment_predict.yml#L27) to the most recent echo server image created at the start of this activity.
 1. Start the deployment and service:
 
 ```shell
@@ -219,8 +219,15 @@ As in [Activity 04](https://github.com/laurentsimon/bh-aisec/tree/main/activitie
 
 ### Test your prediction server
 
+Get the URL of your echo server:
+
+```shell
+$ minikube service echo-server-service --url
+http://192.168.49.2:32346
+```
 Use images from https://huggingface.co/datasets/ylecun/mnist.
 
 ```shell
-$ python bh-aisec-project1/images/echo-server/client_repdict.py ./digit4.png http://localhost:8081/classify/v0
+# Update the URL to the one retrned by the command above.
+$ python bh-aisec-project1/images/echo-server/client_predict.py ./digit4.png http://192.168.49.2:32346
 ```
