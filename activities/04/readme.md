@@ -100,6 +100,12 @@ $ kubectl apply -f k8/echo-server-deployment.yml
 deployment.apps/echo-server-deployment created
 ```
 
+Make sure all the pods are in a running state:
+
+```shell
+kubectl get po -A
+```
+
 Run the following commands to confirm the deployment succeeded:
 
 ```shell

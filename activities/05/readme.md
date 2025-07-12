@@ -209,7 +209,7 @@ $ exit
 To start the deployment:
 
 1. Update the image in [bh-aisec-project1/k8/echo-server-deployment_predict.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment_predict.yml#L27) to the most recent echo server image created at the start of this activity.
-1. Start the deployment and service:
+1. Start the deployment and service. It may take several minutes to take effect. Wait until `kubectl get po -A` reports all pods in runing state.
 
 ```shell
 $ kubectl apply -f bh-aisec-project1/k8/echo-server-deployment_predict.yml 
