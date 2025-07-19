@@ -21,15 +21,11 @@ Install the [necessary software](./INSTALLATION.md).
 6. [Activity 04: Kyverno setup](./activities/04/readme.md)
 8. [Activity 05: Support for model training and inference](./activities/05/readme.md)
 
- 
-TODO
-What's next: source track, dependency track
-project1 -> inferrence
+## Future reading
 
-add goal of project in slides and activity 4?
-
-activity 2: needs update
-In this activity, we will focus on the integrity protections applied to an artifact during its development, i.e. its minimum SLSA level. This will help us achieve the first goal of the workshop, which is to ensure that all produced containers are protected against tampering across the SDLC.
-
-ask users to red the python code. Add comment and in tutorial that we will update later to output a prediction
+1. [TUF](https://theupdateframework.io/) to harden your software updates
+1. [gittuf](https://gittuf.dev/) to encode policies in the git metadata, instead of relying on git provider (GitHub, GitLab).
+1. [SLSA tracks](https://slsa.dev/spec/draft/tracks)
+1. [Securing the AI supply-chain](https://research.google/pubs/securing-the-ai-software-supply-chain/) by Google
+1. [CosAI Supply chain security](https://www.coalitionforsecureai.org/the-ai-supply-chain-security-imperative-6-critical-controls-every-executive-must-implement-now/)
 
