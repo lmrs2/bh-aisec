@@ -180,7 +180,7 @@ Now that we have verified that our model container is ready for deployment, we c
 $ mkdir my_local_data
 # Update with your model
 $ MODEL_IMAGE="docker.io/lmrs2/bh-aisec-model-inference@sha256:b694e56c2c4c60a3e771d7dde95e26c282e1bd6a30a7e8a46c6dc986c54be906"
-$ docker create --name tmp_container $MODEL_IMAGE
+$ docker create --name tmp_container "$MODEL_IMAGE"
 $ docker cp tmp_container:/mnist_classifier.pth my_local_data/mnist_classifier.pth
 $ docker rm tmp_container
 ```
@@ -209,7 +209,7 @@ $ exit
 To start the deployment:
 
 1. Update the image in [bh-aisec-project1/k8/echo-server-deployment_predict.yml](https://github.com/lmrs2/bh-aisec-project1/blob/main/k8/echo-server-deployment_predict.yml#L27) to the most recent echo server image created at the start of this activity.
-1. Start the deployment and service. It may take several minutes to take effect. Wait until `kubectl get po -A` reports all pods in runing state.
+1. Start the deployment and service. It may take several minutes to take effect. Wait until `kubectl get po -A` reports all pods in running state.
 
 ```shell
 $ kubectl apply -f bh-aisec-project1/k8/echo-server-deployment_predict.yml 
@@ -234,7 +234,7 @@ $ python bh-aisec-project1/images/echo-server/client_predict.py ./digit4.png htt
 
 ## What's next
 
-Add integrity protection to datasets you are using:
+Add integrity protection to training datasets:
 
 1. Define a dependency policy. What should go in it?
 2. You builder's control plane should download and verify the dataset against your policy.

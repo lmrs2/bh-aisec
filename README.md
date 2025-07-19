@@ -25,5 +25,5 @@ Install the [necessary software](./INSTALLATION.md).
 1. [Securing the AI supply-chain](https://research.google/pubs/securing-the-ai-software-supply-chain/) by Google
 1. [CosAI Supply chain security](https://www.coalitionforsecureai.org/the-ai-supply-chain-security-imperative-6-critical-controls-every-executive-must-implement-now/)
 1. [OSV](https://osv.dev/) vulnerability database and [OSV-scanner](https://github.com/google/osv-scanner)
-1 [Open source insights](https://deps.dev/) has REST APIs to query metadata about dependencies.
+1. [Open source insights](https://deps.dev/) has REST APIs to query metadata about dependencies.
 
