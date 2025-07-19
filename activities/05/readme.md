@@ -136,7 +136,7 @@ We will deploy the model in the same service account as in [Activity 03](https:/
 
 1. Update the list of [packages](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/deployment/servers-prod.json#L19) using the model container we published in the previous section.
 
-##### Call the evaluator in CI
+### Call the evaluator in CI
 
 Follow these steps:
 
@@ -144,7 +144,7 @@ Follow these steps:
 1. Update the [registry-username](https://github.com/lmrs2/bh-aisec-model/blob/main/.github/workflows/deploy-model.yml#L47) to yours.
 1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). It will take ~40s to complete. If all goes well, the workflow run will display a green icon.
 
-##### Verify deployment attestation manually
+### Verify deployment attestation manually
 
 To verify the publish attestation and inspect it, you can use cosign. Install [cosign](https://github.com/lmrs2/bh-aisec/blob/main/INSTALLATION.md#cosign).
 
