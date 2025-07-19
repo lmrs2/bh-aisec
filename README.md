@@ -11,6 +11,8 @@ All you'll need to do is clone repositories, update configurations and click Git
 
 Install the [necessary software](./INSTALLATION.md).
 
+## Activities
+
 1. [Activity 01: Generate and verify SLSA provenance](./activities/01/readme.md)
 4. [Activity 02: Publish policy](./activities/02/readme.md)
 5. [Activity 03: Deployment policy](./activities/03/readme.md)
