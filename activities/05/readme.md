@@ -231,3 +231,11 @@ Use images from https://huggingface.co/datasets/ylecun/mnist.
 # Update the URL to the one returned by the command above.
 $ python bh-aisec-project1/images/echo-server/client_predict.py ./digit4.png http://192.168.49.2:32346
 ```
+
+## What's next
+
+Add integrity protection to datasets you are using:
+
+1. Define a dependency policy. What should go in it?
+2. You builder's control plane should download and verify the dataset against your policy.
+3. Your training workflow should be hermetic to guarantee no other dependencies are downloaded during training. [StepSecurity](https://www.stepsecurity.io/) have an open-source solution to filter egress traffic on GitHub.
