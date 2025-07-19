@@ -7,10 +7,6 @@ This is the Supply-Chain section for the [Theory and Practice: Machine Learning 
 Virtually none. If you have not coded in a while, you can still follow the workshop. All hands-on activities have code that is ready to be run. 
 All you'll need to do is clone repositories, update configurations and click GitHub buttons or run commands in a terminal to follow along.
 
-## Supporting materials
-
-[Slides](https://github.com/slsa-framework/oss-na24-slsa-workshop/releases/download/materials/presentation.pdf) for the workshop.
-
 ## Installation
 
 Install the [necessary software](./INSTALLATION.md).
