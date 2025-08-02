@@ -49,6 +49,7 @@ $ sudo apt install minikube
 $ minikube version
 minikube version: v1.31.2
 commit: fd7ecd9c4599bef9f04c0986c4a0187f98a4396e
+$ alias kubectl="minikube kubectl --"
 ```
 
 ## Kyverno
