@@ -108,10 +108,9 @@ Follow these steps:
 1. (Already done in Activity 01): Store your docker token as a new GitHub repository secret called `REGISTRY_PASSWORD`: [Settings > New repository secret](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository).
 1. Run the workflow via the [GitHub UI](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow#running-a-workflow). A popup dialog will show as shown below. It will take ~40s to complete. If all goes well, the workflow run will display a green icon. 
 
+<center>
 ![run dialog](https://raw.githubusercontent.com/lmrs2/bh-aisec/main/images/run-dialog.jpg "Update the container image name and `sha256:xxx` for your container image")
-
-
-
+</center>
 
 ##### Verify publish attestation manually
 
@@ -135,7 +134,7 @@ $ creator_id="https://github.com/lmrs2/bh-aisec-organization/.github/workflows/i
 $ type=https://slsa.dev/publish/v0.1
 $ path/to/cosign verify-attestation "${image}" \
     --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-    --certificate-identity "${creator_id}" 
+    --certificate-identity "${creator_id}" \
     --type "${type}" | jq -r '.payload' | base64 -d | jq
 ```
 
