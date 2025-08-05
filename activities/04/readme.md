@@ -128,8 +128,10 @@ http://127.0.0.1:63111
 Send a command to the service:
 
 ```shell
-$ curl -s -X POST -H "Content-Type: application/json"      -d '{"image": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="}' http://127.0.0.1:63111/
+$ curl -s -X POST -H "Content-Type: application/json"      -d '{"image": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="}' http://127.0.0.1:63111/classify/v0
 ```
+
+You should see a JSON file with the decoded image in hexadecimal. (In the next activity we will add support for the model inference.)
 
 Now update the pod definition with an image that is _not_ allowed to run under this service account:
 
