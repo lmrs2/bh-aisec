@@ -97,6 +97,7 @@ If the policy evaluation succeeds, the evaluator creates a deployment attestatio
 
 Follow these steps:
 
+1. Update the [organization's trusted publisher "root"](https://github.com/lmrs2/bh-aisec-organization/blob/main/policies/deployment/org.json#L6) to your organization's trusted publisher workflow.
 1. Update the [organization workflow call](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/deploy-image.yml#L41) that evaluates the deployment policy.
 1. Update the [registry-username](https://github.com/lmrs2/bh-aisec-project1/blob/main/.github/workflows/deploy-image.yml#L47) to yours.
 1. (Already done in Activity [01](https://github.com/lmrs2/bh-aisec/blob/main/activities/01/readme.md) and [02](https://github.com/lmrs2/bh-aisec/blob/main/activities/02/readme.md)): Create a [docker regitry token](https://docs.docker.com/security/for-developers/access-tokens/#create-an-access-token) with read, write and delete access. 
